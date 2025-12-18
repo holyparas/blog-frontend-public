@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
+import { apiFetch } from "./api";
 
 const CardGrid = () => {
   const [posts, setPosts] = useState([]);
@@ -7,7 +8,7 @@ const CardGrid = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/posts");
+        const res = await apiFetch("/api/posts");
         if (!res.ok) throw new Error("failed to fetch");
 
         const data = await res.json();

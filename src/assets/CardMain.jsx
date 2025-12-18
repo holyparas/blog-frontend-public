@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navigation from "../Navigation";
-import { Link } from "react-router-dom";
+import { apiFetch } from "../api";
+
 const CardMain = () => {
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
@@ -16,20 +17,17 @@ const CardMain = () => {
     if (!response.trim()) return;
 
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/posts/${params.postid}/comments`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            comment: response,
-            name: name,
-            created_at: new Date().toISOString(),
-          }),
-        }
-      );
+      const res = await apiFetch(`/api/posts/${params.postid}/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          comment: response,
+          name: name,
+          created_at: new Date().toISOString(),
+        }),
+      });
 
       if (!res.ok) throw new Error("failed to post comment");
 
@@ -46,9 +44,7 @@ const CardMain = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:3000/api/posts/${params.postid}`
-        );
+        const res = await apiFetch(`/api/posts/${params.postid}`);
         if (!res.ok) throw new Error("failed to fetch");
 
         const data = await res.json();
@@ -64,9 +60,7 @@ const CardMain = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:3000/api/posts/${params.postid}/comments`
-        );
+        const res = await apiFetch(`/api/posts/${params.postid}/comments`);
         if (!res.ok) throw new Error("failed to fetch");
 
         const data = await res.json();
