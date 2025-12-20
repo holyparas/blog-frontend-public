@@ -29,9 +29,9 @@ const CardMain = () => {
         }),
       });
 
-      if (!res.ok) throw new Error("failed to post comment");
+      // if (!res.ok) throw new Error("failed to post comment");
 
-      const newComment = await res.json();
+      const newComment = res;
 
       //update UI immediately
       setComments((prev) => [...prev, newComment]);
@@ -45,11 +45,11 @@ const CardMain = () => {
     const fetchPost = async () => {
       try {
         const res = await apiFetch(`/api/posts/${params.postid}`);
-        if (!res.ok) throw new Error("failed to fetch");
+        // if (!res.ok) throw new Error("failed to fetch");
 
-        const data = await res.json();
-        console.log("data: ", data);
-        setPost(data);
+        // const data = await res.json();
+        // console.log("data: ", data);
+        setPost(res);
       } catch (err) {
         console.error(err);
       }
@@ -61,11 +61,11 @@ const CardMain = () => {
     const fetchComments = async () => {
       try {
         const res = await apiFetch(`/api/posts/${params.postid}/comments`);
-        if (!res.ok) throw new Error("failed to fetch");
+        // if (!res.ok) throw new Error("failed to fetch");
 
-        const data = await res.json();
-        console.log("comments: ", data);
-        setComments(data);
+        // const data = await res.json();
+        // console.log("comments: ", data);
+        setComments(res);
       } catch (err) {
         console.error(err);
       }
