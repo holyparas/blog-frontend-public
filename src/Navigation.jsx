@@ -40,19 +40,18 @@ const Navigation = () => {
             </svg>
           </div> */}
 
-          <Link
-            to="/register"
+          <a
+            href="https://blogauthortop.netlify.app/register"
             className=" font-medium text-gray-700 hover:text-blue-600"
           >
             Register
-          </Link>
-
-          <Link
-            to="/login"
+          </a>
+          <a
+            href="https://blogauthortop.netlify.app/login"
             className=" font-medium text-gray-700 hover:text-blue-600"
           >
             Login
-          </Link>
+          </a>
         </div>
       </nav>
     </div>
