@@ -9,7 +9,7 @@ const CardGrid = () => {
     const fetchPosts = async () => {
       try {
         const res = await apiFetch("/api/posts");
-        if (!res.ok) throw new Error("failed to fetch");
+        // if (!res.ok) throw new Error("failed to fetch");
 
         // const data = await res.json();
         // console.log("data: ", data);
