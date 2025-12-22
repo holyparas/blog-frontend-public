@@ -5,8 +5,17 @@ import { apiFetch } from "./api";
 const CardGrid = () => {
   const [posts, setPosts] = useState([]);
 
+  const wakeBackend = async () => {
+    try {
+      await apiFetch("/hello");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
+      await wakeBackend();
       try {
         const res = await apiFetch("/api/posts");
         // if (!res.ok) throw new Error("failed to fetch");
