@@ -5,19 +5,23 @@ import { apiFetch } from "./api";
 const CardGrid = () => {
   const [posts, setPosts] = useState([]);
 
-  const wakeBackend = async () => {
+  const fetchWithRetry = async (fn, retries = 5, delay = 1000) => {
     try {
-      await apiFetch("/hello");
-    } catch (error) {
-      console.error(error);
+      return await fn();
+    } catch (err) {
+      if (retries === 0) throw err;
+
+      console.log(`Retrying... (${retries})`);
+      await new Promise((res) => setTimeout(res, delay));
+
+      return fetchWithRetry(fn, retries - 1, delay * 1.7);
     }
   };
 
   useEffect(() => {
     const fetchPosts = async () => {
-      await wakeBackend();
       try {
-        const res = await apiFetch("/api/posts");
+        const res = await fetchWithRetry(() => apiFetch("/api/posts"));
         // if (!res.ok) throw new Error("failed to fetch");
 
         // const data = await res.json();
